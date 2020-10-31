@@ -1,0 +1,27 @@
+//https://practice.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence4749/1#
+class Solution{
+	public:
+	int maxSumIS(int arr[], int n)  
+	{  
+	    int dp[n];
+	    dp[0]=arr[0];
+	    for(int i=1;i<n;i++){
+	        int temp=arr[i];
+	        for(int j=0;j<i;j++){
+	            if(arr[j]<arr[i]){
+	                temp=max(temp,dp[j]+arr[i]);
+	            }
+	        }
+	       dp[i]=temp;
+	    }
+	    
+	    int ans=INT_MIN;
+	    for(int i=0;i<n;i++)
+	    {
+	        ans=max(ans,dp[i]);
+	    }
+	    
+	    return ans;
+	}
+	
+};
