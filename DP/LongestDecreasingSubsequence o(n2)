@@ -1,0 +1,33 @@
+//https://www.hackerrank.com/contests/startup-career-fair-challenge/challenges/scf-hard/problem
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int main() {
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    int dp[n];
+    dp[0]=1;
+    for(int i=1;i<n;i++)
+    {
+        int temp=1;
+        for(int j=0;j<i;j++)
+        {
+            if(arr[i]<arr[j])
+            temp=max(temp,dp[j]+1);
+        }
+        dp[i]=temp;
+    }
+    
+    int ans=1;
+    for(int i=0;i<n;i++)
+        ans=max(ans,dp[i]);
+    cout<<ans;
+    return 0;
+}
