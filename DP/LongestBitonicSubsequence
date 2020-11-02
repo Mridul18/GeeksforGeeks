@@ -1,0 +1,40 @@
+//https://practice.geeksforgeeks.org/problems/longest-bitonic-subsequence0824/1
+class Solution{
+	public:
+
+	int LongestBitonicSequence(vector<int>nums)
+	{
+	    int n=nums.size();
+	    if(n==0)
+	    return 0;
+	    vector<int> lis(n);
+	    lis[0]=1;
+	    for(int i=1;i<n;i++)
+	    {
+	        int temp=1;
+	        for(int j=0;j<i;j++){
+	            if(nums[i]>nums[j])temp=max(temp,lis[j]+1);
+	        }
+	        lis[i]=temp;
+	    }
+	    
+	    reverse(nums.begin(),nums.end());
+	    vector<int> lds(n);
+	    lds[0]=1;
+	    for(int i=1;i<n;i++)
+	    {
+	        int temp=1;
+	        for(int j=0;j<i;j++){
+	            if(nums[i]>nums[j])temp=max(temp,lds[j]+1);
+	        }
+	        lds[i]=temp;
+	    }
+	    
+	    int ans=0;
+	    for(int i=0;i<n;i++)ans=max(ans,lis[i]+lds[n-i-1]);
+	    
+	    return ans-1;
+	    
+	    
+	}
+};
