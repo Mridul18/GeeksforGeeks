@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+pair<int,int> moves[8]={{2,1},{1,2},{-1,2},{-2,1},{2,-1},{1,-2},{-1,-2},{-2,-1}};
+bool checkvalid(int a,int b,int n){
+    if(a<1 or b<1 or a>n or b>n)
+    return false;
+    return true;
+}
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        int c=0;
+        cin>>n;
+        int dp[n+1][n+1];
+        memset(dp,0,sizeof(dp));
+        pair<int,int> start,end;
+        cin>>start.first>>start.second;
+        cin>>end.first>>end.second;
+        queue<pair<int,int>> q;
+        if(start==end)goto done;
+        q.push(start);
+        dp[start.first][start.second]=0;
+        c++;
+        while(!q.empty()){
+          int size=q.size();
+          while(size--){
+              pair<int,int> temp=q.front();
+              q.pop();
+              for(auto x:moves){
+                  if(checkvalid(temp.first+x.first,temp.second+x.second,n)and !dp[x.first+temp.first][x.second+temp.second])
+                     {
+                      q.push({temp.first+x.first,temp.second+x.second});
+                      dp[temp.first+x.first][temp.second+x.second]=c;
+                      if(temp.first+x.first==end.first and temp.second+x.second==end.second)goto done;
+                     }
+              }
+          }
+        c++;
+        }
+        done:
+          cout<<c<<endl;
+          ;
+    }
+}
